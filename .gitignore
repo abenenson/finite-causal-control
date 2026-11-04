@@ -1,0 +1,6 @@
+.lake/
+verification-artifacts/
+
+# Python verification bytecode
+__pycache__/
+*.py[cod]

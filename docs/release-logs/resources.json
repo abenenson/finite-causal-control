@@ -1,0 +1,24 @@
+{
+  "command": [
+    "python3",
+    "scripts/verify.py",
+    "--evidence-dir",
+    "verification-artifacts/release-20261104-3"
+  ],
+  "cwd": "/workspace/verification-open-source/finite-causal-control",
+  "exit_code": 0,
+  "reason": "completed",
+  "elapsed_seconds": 47.301222246999714,
+  "sampled_peak_tree_rss_bytes": 2497961984,
+  "memory_ceiling_bytes": 17179869184,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "surviving_non_zombie_pids": [],
+  "rss_sampling_seconds": 0.2,
+  "per_process_address_space_limit": true,
+  "adopted_descendants_reaped": 0,
+  "child_subreaper": true,
+  "cancelled_signal": null
+}

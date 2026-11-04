@@ -1,0 +1,12 @@
+{
+  "scope": "Release configuration and verification inputs for the locally qualified source",
+  "sha256": {
+    "lakefile.lean": "7c3f4412e30d3633b453ca0aea0cd73fa17ea58659ff9a8bdbc5a53545be4cec",
+    "lake-manifest.json": "863ccdae83a6d7e654108fd73a67c81a23694e5aa2e049df23b1fc97dfccd8a3",
+    "lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+    "verification.json": "dafefc6cb184105453c0748db0322fa0d19404dca8f8c38500faaf7dbd91d9dc",
+    "scripts/verify.py": "e141b204b2afd540d8ed799745abb4c21ae27539432675c3c0c11183384050e3",
+    "scripts/test_verify.py": "7da3ed1a0ad1093d8d703c66bf371c67bea9fbd71b0ccd29284b0048a7a70475",
+    "ORIGIN.json": "4524330942c0d95a2a20aada0760dcc6e18d85983fdf36d3772ff627a642a7b7"
+  }
+}
