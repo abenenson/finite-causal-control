@@ -1,0 +1,156 @@
+{
+  "root_module": "FiniteCausalControl",
+  "examples_module": "FiniteCausalControlExamples",
+  "source_files": [
+    "FiniteCausalControl/PathLaw.lean",
+    "FiniteCausalControl/SoftBellman.lean",
+    "FiniteCausalControl/SupportedUniqueness.lean",
+    "FiniteCausalControl.lean",
+    "FiniteCausalControlExamples/Basic.lean",
+    "FiniteCausalControlExamples.lean"
+  ],
+  "audit_imports": [
+    "FiniteCausalControl",
+    "FiniteCausalControlExamples"
+  ],
+  "declarations": [
+    "FiniteCausalControl.HistoryExtension",
+    "FiniteCausalControl.History",
+    "FiniteCausalControl.historyFintype",
+    "FiniteCausalControl.currentState",
+    "FiniteCausalControl.BehavioralPolicy",
+    "FiniteCausalControl.BehavioralPolicy.FullSupport",
+    "FiniteCausalControl.BehavioralPolicy.tail",
+    "FiniteCausalControl.BehavioralPolicy.FullSupport.tail",
+    "FiniteCausalControl.evolveLaw",
+    "FiniteCausalControl.rowPair",
+    "FiniteCausalControl.sourcePreservingStep",
+    "FiniteCausalControl.sourcePreservingStep_numerator",
+    "FiniteCausalControl.sourcePreservingStep_reference",
+    "FiniteCausalControl.finiteKL_sourcePreservingStep",
+    "FiniteCausalControl.sourcePreservingPair",
+    "FiniteCausalControl.strategicKL",
+    "FiniteCausalControl.finiteKL_sourcePreservingPair",
+    "FiniteCausalControl.generatedPair",
+    "FiniteCausalControl.finiteKL_generatedPair",
+    "FiniteCausalControl.expectation",
+    "FiniteCausalControl.expectation_add",
+    "FiniteCausalControl.expectation_const_mul",
+    "FiniteCausalControl.expectedNextValue",
+    "FiniteCausalControl.softActionValue",
+    "FiniteCausalControl.softMinimum",
+    "FiniteCausalControl.beta_mul_softMinimum",
+    "FiniteCausalControl.softValue",
+    "FiniteCausalControl.optimalRow",
+    "FiniteCausalControl.beta_mul_softValue_succ",
+    "FiniteCausalControl.optimalRow_apply",
+    "FiniteCausalControl.optimalRow_log_ratio",
+    "FiniteCausalControl.optimalPolicy",
+    "FiniteCausalControl.optimalPolicy_zero",
+    "FiniteCausalControl.optimalPolicy_tail",
+    "FiniteCausalControl.stateFeedbackPolicy",
+    "FiniteCausalControl.stateFeedbackPolicy_zero",
+    "FiniteCausalControl.stateFeedbackPolicy_tail",
+    "FiniteCausalControl.stateFeedbackPolicy_fullSupport",
+    "FiniteCausalControl.expectedCost",
+    "FiniteCausalControl.controlObjective",
+    "FiniteCausalControl.controlObjective_eq_pathKL",
+    "FiniteCausalControl.controlObjective_succ",
+    "FiniteCausalControl.policyRegret",
+    "FiniteCausalControl.expectation_evolveLaw",
+    "FiniteCausalControl.expectation_evolveLaw_currentState",
+    "FiniteCausalControl.rowObjective_eq_softMinimum_add_regret",
+    "FiniteCausalControl.rowObjective_eq_softValue_add_regret",
+    "FiniteCausalControl.policyRegret_nonneg",
+    "FiniteCausalControl.controlObjective_eq_value_add_regret",
+    "FiniteCausalControl.optimalPolicy_fullSupport",
+    "FiniteCausalControl.policyRegret_optimalPolicy",
+    "FiniteCausalControl.optimalPolicy_minimizes",
+    "FiniteCausalControl.generatedLaw",
+    "FiniteCausalControl.sourcePreservingPair_numerator_eq_generatedLaw",
+    "FiniteCausalControl.sourcePreservingPair_reference_eq_generatedLaw",
+    "FiniteCausalControl.generatedPair_numerator_eq_generatedLaw",
+    "FiniteCausalControl.generatedPair_reference_eq_generatedLaw",
+    "FiniteCausalControl.PolicyEqOnSupportedHistories",
+    "FiniteCausalControl.evolveLaw_eq_of_rows_eq_on_support",
+    "FiniteCausalControl.generatedLaw_eq_of_policyEqOnSupportedHistories",
+    "FiniteCausalControl.IsBellmanOnOwnSupportedHistories",
+    "FiniteCausalControl.isBellmanOnOwnSupportedHistories_of_policyRegret_eq_zero",
+    "FiniteCausalControl.policyEqOnSelectedSupport_of_isBellmanOnOwnSupport",
+    "FiniteCausalControl.minimizer_eq_on_selected_support",
+    "FiniteCausalControl.Examples.fair",
+    "FiniteCausalControl.Examples.fair_fullSupport",
+    "FiniteCausalControl.Examples.noisyKernel",
+    "FiniteCausalControl.Examples.passive",
+    "FiniteCausalControl.Examples.passive_fullSupport",
+    "FiniteCausalControl.Examples.actionCost",
+    "FiniteCausalControl.Examples.terminalCost",
+    "FiniteCausalControl.Examples.initial",
+    "FiniteCausalControl.Examples.alwaysFalse",
+    "FiniteCausalControl.Examples.stochasticWord",
+    "FiniteCausalControl.Examples.twoStep_word_mass",
+    "FiniteCausalControl.Examples.gibbs_prefers_cheaper_action",
+    "FiniteCausalControl.Examples.objective",
+    "FiniteCausalControl.Examples.selected",
+    "FiniteCausalControl.Examples.twoStep_objective_eq_value_add_regret",
+    "FiniteCausalControl.Examples.twoStep_minimizer_law_and_support",
+    "FiniteCausalControl.Examples.baseline",
+    "FiniteCausalControl.Examples.changedOffSupport",
+    "FiniteCausalControl.Examples.offSupport_change_preserves_law",
+    "FiniteCausalControl.Examples.offSupport_policies_differ"
+  ],
+  "public_dependencies": {
+    "mathlib": {
+      "rev": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+      "url": "https://github.com/leanprover-community/mathlib4"
+    },
+    "plausible": {
+      "rev": "118aa17ee84656b8bd727fef7c458ee8c833385c",
+      "url": "https://github.com/leanprover-community/plausible"
+    },
+    "LeanSearchClient": {
+      "rev": "ddf04cf3949fa556442341e87d47f9f6e6074707",
+      "url": "https://github.com/leanprover-community/LeanSearchClient"
+    },
+    "importGraph": {
+      "rev": "e928b72544873815af278d38681b31c0293588e3",
+      "url": "https://github.com/leanprover-community/import-graph"
+    },
+    "proofwidgets": {
+      "rev": "106ff4fafc74ef4ac99d81dbf3ab399118f497a5",
+      "url": "https://github.com/leanprover-community/ProofWidgets4"
+    },
+    "aesop": {
+      "rev": "355695d523e41d0554926416cba2a2b3544fbbc9",
+      "url": "https://github.com/leanprover-community/aesop"
+    },
+    "Qq": {
+      "rev": "6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259",
+      "url": "https://github.com/leanprover-community/quote4"
+    },
+    "batteries": {
+      "rev": "f2effa3d803fda822b1f97b806c47cf2adfbcbc2",
+      "url": "https://github.com/leanprover-community/batteries"
+    },
+    "Cli": {
+      "rev": "e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204",
+      "url": "https://github.com/leanprover/lean4-cli"
+    },
+    "finite-relative-entropy": {
+      "rev": "ab89211562f15ebff49e9bda0d88a4bc8cdf32dd",
+      "url": "https://github.com/abenenson/finite-relative-entropy"
+    },
+    "finite-markov-kernels": {
+      "rev": "de78502c3f191840bc6b3ff55d2be5e9d66ca122",
+      "url": "https://github.com/abenenson/finite-markov-kernels"
+    }
+  },
+  "dependency_modules": {
+    "finite-relative-entropy": [
+      "FiniteRelativeEntropy"
+    ],
+    "finite-markov-kernels": [
+      "FiniteMarkovKernels"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+.compiler-version 0
+exact-build 0
+lint-Fixture.lean 0
+axioms 0
+............PASS: 1 files; 1 named declarations
+compiler-version 0
+exact-build 0
+.
+----------------------------------------------------------------------
+Ran 14 tests in 0.167s
+
+OK

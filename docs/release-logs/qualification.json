@@ -1,0 +1,574 @@
+{
+  "status": "passed",
+  "stages": [
+    {
+      "name": "compiler-version",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "exact-build",
+      "command": [
+        "lake",
+        "--rehash",
+        "--wfail",
+        "build",
+        "+FiniteCausalControl.PathLaw:olean",
+        "+FiniteCausalControl.SoftBellman:olean",
+        "+FiniteCausalControl.SupportedUniqueness:olean",
+        "+FiniteCausalControl:olean",
+        "+FiniteCausalControlExamples.Basic:olean",
+        "+FiniteCausalControlExamples:olean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControl-PathLaw.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControl/PathLaw.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControl-SoftBellman.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControl/SoftBellman.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControl-SupportedUniqueness.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControl/SupportedUniqueness.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControl.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControl.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControlExamples-Basic.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControlExamples/Basic.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint-FiniteCausalControlExamples.lean",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "--root=/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/lint-sources/FiniteCausalControlExamples.lean"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "axioms",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-j2",
+        "--json",
+        "/workspace/sft-open-source/finite-causal-control/verification-artifacts/release-20261104-3/axioms.lean"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "FiniteCausalControl/PathLaw.lean": "13de8d96d0f302db501b789e5dbd6d85c6fff4a6e958f50b1285b88e21225a90",
+    "FiniteCausalControl/SoftBellman.lean": "79f7022942df42e9e734914a339340206b94ff40a22d3e3d2c8766fb0fd960bd",
+    "FiniteCausalControl/SupportedUniqueness.lean": "a12ff670cb9c7fd268d1a8dbcb0ad42095b56c0a58be2f4366dbfa15518dac08",
+    "FiniteCausalControl.lean": "327623bf216ed17dcf1da789770cde91b278a61be6c3cb3c957490e2413cae37",
+    "FiniteCausalControlExamples/Basic.lean": "034500cf2add677c67036c37da2a370dc0ddee8c9ffe6ab12e32992b1ed9c713",
+    "FiniteCausalControlExamples.lean": "674cbe818b683653cd64a648450264787e1b0fcce39ed341f6118d8c219ef1b9"
+  },
+  "axioms": {
+    "FiniteCausalControl.HistoryExtension": [],
+    "FiniteCausalControl.History": [],
+    "FiniteCausalControl.historyFintype": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.currentState": [],
+    "FiniteCausalControl.BehavioralPolicy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.BehavioralPolicy.FullSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.BehavioralPolicy.tail": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.BehavioralPolicy.FullSupport.tail": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.evolveLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.rowPair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingStep": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingStep_numerator": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingStep_reference": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.finiteKL_sourcePreservingStep": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingPair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.strategicKL": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.finiteKL_sourcePreservingPair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.generatedPair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.finiteKL_generatedPair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectation": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectation_add": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectation_const_mul": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectedNextValue": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.softActionValue": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.softMinimum": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.beta_mul_softMinimum": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.softValue": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalRow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.beta_mul_softValue_succ": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalRow_apply": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalRow_log_ratio": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalPolicy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalPolicy_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalPolicy_tail": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.stateFeedbackPolicy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.stateFeedbackPolicy_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.stateFeedbackPolicy_tail": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.stateFeedbackPolicy_fullSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectedCost": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.controlObjective": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.controlObjective_eq_pathKL": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.controlObjective_succ": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.policyRegret": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectation_evolveLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.expectation_evolveLaw_currentState": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.rowObjective_eq_softMinimum_add_regret": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.rowObjective_eq_softValue_add_regret": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.policyRegret_nonneg": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.controlObjective_eq_value_add_regret": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalPolicy_fullSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.policyRegret_optimalPolicy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.optimalPolicy_minimizes": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.generatedLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingPair_numerator_eq_generatedLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.sourcePreservingPair_reference_eq_generatedLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.generatedPair_numerator_eq_generatedLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.generatedPair_reference_eq_generatedLaw": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.PolicyEqOnSupportedHistories": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.evolveLaw_eq_of_rows_eq_on_support": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.generatedLaw_eq_of_policyEqOnSupportedHistories": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.IsBellmanOnOwnSupportedHistories": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.isBellmanOnOwnSupportedHistories_of_policyRegret_eq_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.policyEqOnSelectedSupport_of_isBellmanOnOwnSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.minimizer_eq_on_selected_support": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.fair": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.fair_fullSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.noisyKernel": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.passive": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.passive_fullSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.actionCost": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.terminalCost": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.initial": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.alwaysFalse": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.stochasticWord": [],
+    "FiniteCausalControl.Examples.twoStep_word_mass": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.gibbs_prefers_cheaper_action": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.objective": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.selected": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.twoStep_objective_eq_value_add_regret": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.twoStep_minimizer_law_and_support": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.baseline": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.changedOffSupport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.offSupport_change_preserves_law": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "FiniteCausalControl.Examples.offSupport_policies_differ": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "Authored sources and explicit named transitive dependencies",
+  "compiler_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "dependency_revisions": {
+    "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+    "plausible": "118aa17ee84656b8bd727fef7c458ee8c833385c",
+    "LeanSearchClient": "ddf04cf3949fa556442341e87d47f9f6e6074707",
+    "importGraph": "e928b72544873815af278d38681b31c0293588e3",
+    "proofwidgets": "106ff4fafc74ef4ac99d81dbf3ab399118f497a5",
+    "aesop": "355695d523e41d0554926416cba2a2b3544fbbc9",
+    "Qq": "6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259",
+    "batteries": "f2effa3d803fda822b1f97b806c47cf2adfbcbc2",
+    "Cli": "e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204",
+    "finite-relative-entropy": "ab89211562f15ebff49e9bda0d88a4bc8cdf32dd",
+    "finite-markov-kernels": "de78502c3f191840bc6b3ff55d2be5e9d66ca122"
+  },
+  "removed_authored_artifacts": [
+    ".lake/build/lib/lean/FiniteCausalControl/PathLaw.ilean",
+    ".lake/build/lib/lean/FiniteCausalControl/PathLaw.ilean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/PathLaw.olean",
+    ".lake/build/lib/lean/FiniteCausalControl/PathLaw.olean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/PathLaw.trace",
+    ".lake/build/lib/lean/FiniteCausalControl/SoftBellman.ilean",
+    ".lake/build/lib/lean/FiniteCausalControl/SoftBellman.ilean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/SoftBellman.olean",
+    ".lake/build/lib/lean/FiniteCausalControl/SoftBellman.olean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/SoftBellman.trace",
+    ".lake/build/lib/lean/FiniteCausalControl/SupportedUniqueness.ilean",
+    ".lake/build/lib/lean/FiniteCausalControl/SupportedUniqueness.ilean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/SupportedUniqueness.olean",
+    ".lake/build/lib/lean/FiniteCausalControl/SupportedUniqueness.olean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl/SupportedUniqueness.trace",
+    ".lake/build/lib/lean/FiniteCausalControl.ilean",
+    ".lake/build/lib/lean/FiniteCausalControl.ilean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl.olean",
+    ".lake/build/lib/lean/FiniteCausalControl.olean.hash",
+    ".lake/build/lib/lean/FiniteCausalControl.trace"
+  ],
+  "full_linter_count": 16,
+  "named_declaration_count": 84
+}
