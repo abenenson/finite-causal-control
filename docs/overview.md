@@ -55,3 +55,10 @@ The CI workflow uses read-only repository permissions and immutable action revis
 A workflow definition, historical local receipt, hosted execution, and public release
 are separate outcomes. Current source qualification is recorded with the exact release
 candidate rather than inferred from the the library source's earlier checks.
+
+## Private CI dependencies
+
+The `vendor` Git bundles contain the exact private dependency commits pinned by Lake.
+The setup script verifies bundle hashes, manifest URLs/revisions, checkout identity and
+tracked cleanliness before Lean setup. CI needs no additional repository credential.
+The mathematical sources and their qualification identities are unchanged.

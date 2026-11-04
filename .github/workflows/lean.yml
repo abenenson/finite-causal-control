@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Verifier rejection controls
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Prepare pinned private dependencies
+        run: python3 scripts/prepare_private_dependencies.py
       - uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6
         with:
           auto-config: false
