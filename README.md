@@ -42,26 +42,22 @@ The library reuses the probability-vector type from
 [`finite-markov-kernels`](https://github.com/abenenson/finite-markov-kernels) and the finite
 KL/Gibbs theory from
 [`finite-relative-entropy`](https://github.com/abenenson/finite-relative-entropy).
-It contains no copy of either mathematical core and imports no the library theory.
+It uses the shared probability and KL APIs supplied by those dependencies.
 
 The supported compiler is **Lean 4.34.1** with Mathlib
 **`d13f23b723b8a846827a245b89c10fc7d3f11612`**.
 The release manifest records exact dependency revisions.
 
 ```bash
-python3 scripts/prepare_private_dependencies.py
 lake exe cache get
 lake --rehash --wfail build
 python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/verify.py
 ```
 
-Run these commands from the checkout root. While the Markov and relative-entropy
-dependencies remain private, the preparation step restores their exact pinned
-commits from the bundled Git snapshots in `vendor/`. It checks bundle hashes and
-Lake URLs/revisions before materializing the checkouts, so no additional
-repository credential is needed. CI runs the same preparation before Lean setup.
-See the [private dependency notes](docs/overview.md#private-ci-dependencies).
+Run these commands from the checkout root. Lake resolves the exact pinned
+dependencies from their public GitHub repositories. CI uses the same public
+dependency graph; see the [dependency notes](docs/overview.md#public-dependencies).
 
 Verification rebuilds the exact authored source, runs all 16 source linters with warnings
 fatal, checks public declaration coverage, and audits named public declarations' transitive

@@ -56,9 +56,9 @@ A workflow definition, historical local receipt, hosted execution, and public re
 are separate outcomes. Current source qualification is recorded with the exact release
 candidate rather than inferred from the the library source's earlier checks.
 
-## Private CI dependencies
+## Public dependencies
 
-The `vendor` Git bundles contain the exact private dependency commits pinned by Lake.
-The setup script verifies bundle hashes, manifest URLs/revisions, checkout identity and
-tracked cleanliness before Lean setup. CI needs no additional repository credential.
-The mathematical sources and their qualification identities are unchanged.
+Lake resolves the exact dependency commits recorded in `lake-manifest.json` from
+their public GitHub repositories. Builds require no additional repository credential.
+The verifier checks the resolved dependency revisions against the pinned manifest.
+CI performs a fresh source build, full source lint, and named transitive axiom audit.

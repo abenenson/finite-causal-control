@@ -1,0 +1,13 @@
+{
+  "history_policy": "One rewritten commit per original commit, retaining author/committer dates, parent topology and development layers. Only identifying metadata and dependency commit identifiers were normalized.",
+  "proof_commands_unchanged": true,
+  "verification_scope": "Historical proof build and lint records retain their original scope. Python regression checks and source comparisons validate the publication cleanup; no fresh Lean build is claimed.",
+  "source_sha256": {
+    "FiniteCausalControl.lean": "327623bf216ed17dcf1da789770cde91b278a61be6c3cb3c957490e2413cae37",
+    "FiniteCausalControl/PathLaw.lean": "13de8d96d0f302db501b789e5dbd6d85c6fff4a6e958f50b1285b88e21225a90",
+    "FiniteCausalControl/SoftBellman.lean": "79f7022942df42e9e734914a339340206b94ff40a22d3e3d2c8766fb0fd960bd",
+    "FiniteCausalControl/SupportedUniqueness.lean": "a12ff670cb9c7fd268d1a8dbcb0ad42095b56c0a58be2f4366dbfa15518dac08",
+    "FiniteCausalControlExamples.lean": "674cbe818b683653cd64a648450264787e1b0fcce39ed341f6118d8c219ef1b9",
+    "FiniteCausalControlExamples/Basic.lean": "034500cf2add677c67036c37da2a370dc0ddee8c9ffe6ab12e32992b1ed9c713"
+  }
+}
