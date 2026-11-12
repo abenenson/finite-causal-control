@@ -31,9 +31,8 @@ control work (2005), Emanuel Todorov's linearly-solvable control work, and Brian
 maximum-causal-entropy formulation (2010). This package claims neither mathematical
 priority nor an exhaustive comparison with those formulations.
 
-The source files were extracted from the generic mathematical layer of verification/OmegaFlow at
-the commit recorded in `ORIGIN.json`. The extraction remaps package imports and the enclosing
-namespace and adds a missing instance docstring. Finite KL and its Gibbs identity are shared through
+The public source identities and license notices are recorded in `ORIGIN.json`.
+Finite KL and its Gibbs identity are shared through
 `finite-relative-entropy`; finite probability vectors are shared through
 `finite-markov-kernels`. The extracted source's mathematical hypotheses remain explicit.
 

@@ -72,4 +72,4 @@ policy-dependent source theorem, numerical convergence guarantee, or global equa
 policy rows away from generated support. See [the API and overlap notes](docs/overview.md).
 
 Copyright 2026 Adam Benenson. Apache 2.0. [LICENSE](LICENSE), [NOTICE](NOTICE), and
-[ORIGIN.json](ORIGIN.json) preserve the generic mathematical sources' extraction provenance.
+[ORIGIN.json](ORIGIN.json) record the public source identities and license notices.
