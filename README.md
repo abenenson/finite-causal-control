@@ -1,5 +1,7 @@
 # finite-causal-control
 
+[![Lean verification](https://github.com/abenenson/finite-causal-control/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/abenenson/finite-causal-control/actions/workflows/lean.yml)
+
 Finite-horizon, entropy-regularized stochastic control in Lean and Mathlib.
 The library constructs complete action–state histories from behavioral policies and
 one policy-independent controlled transition kernel. Kernels and costs may vary with time.
