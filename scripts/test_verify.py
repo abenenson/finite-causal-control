@@ -18,7 +18,7 @@ spec.loader.exec_module(verify)
 def fixture_repository(root):
     """Create a minimal, isolated repository for mocked end-to-end verifier controls."""
     (root / 'scripts').mkdir(parents=True)
-    (root / 'lean-toolchain').write_text('leanprover/lean4:v4.34.1\n')
+    (root / 'lean-toolchain').write_text('leanprover/lean4:v4.35.0\n')
     (root / 'lakefile.lean').write_text('import Lake\n')
     (root / 'lake-manifest.json').write_text(json.dumps({'packages': []}))
     config = {'root_module': 'Fixture', 'examples_module': 'FixtureExamples',
@@ -26,8 +26,8 @@ def fixture_repository(root):
               'declarations': ['Fixture.identity'], 'public_dependencies': {}}
     (root / 'verification.json').write_text(json.dumps(config))
     (root / 'Fixture.lean').write_text(
-        '/- Copyright (c) 2026 Adam Benenson. -/\n/-! Fixture -/\n'
-        'namespace Fixture\ntheorem identity : True := by trivial\nend Fixture\n')
+        '/- Copyright (c) 2026 Adam Benenson. -/\nmodule\n/-! Fixture -/\n'
+        'public section\nnamespace Fixture\ntheorem identity : True := by trivial\nend Fixture\n')
 
 
 class VerificationControls(unittest.TestCase):
@@ -164,7 +164,7 @@ class VerificationControls(unittest.TestCase):
 
             def fake_run(command, **kwargs):
                 if command == ['lake', 'env', 'lean', '--version']:
-                    output = 'Lean (version 4.34.1, fixture)'
+                    output = 'Lean (version 4.35.0, fixture)'
                 elif 'build' in command:
                     self.assertFalse(stale.exists(), 'Exact build consumed a cached author artifact')
                     stale.write_bytes(b'fresh authored artifact')
@@ -173,6 +173,12 @@ class VerificationControls(unittest.TestCase):
                     output = json.dumps({'severity': 'information',
                                          'data': "'Fixture.identity' depends on axioms: [propext]"})
                 else:
+                    replay = Path(command[-1]).read_text()
+                    self.assertIn('module\nimport Mathlib.Tactic.Linter.Lint\n', replay)
+                    self.assertEqual(
+                        replay.replace('import Mathlib.Tactic.Linter.Lint\n', '', 1)
+                        .removesuffix('\n#lint docBlame docBlameThm\n'),
+                        (root / 'Fixture.lean').read_text())
                     output = json.dumps({'severity': 'information',
                                          'data': '-- All linting checks passed! with 16 linters'})
                 return SimpleNamespace(returncode=0, stdout=output)
@@ -191,7 +197,7 @@ class VerificationControls(unittest.TestCase):
     def test_zero_exit_exact_build_error_rejected_end_to_end(self):
         def fake_run(command, **kwargs):
             if command == ['lake', 'env', 'lean', '--version']:
-                output = 'Lean (version 4.34.1, fixture)'
+                output = 'Lean (version 4.35.0, fixture)'
             else:
                 self.assertIn('build', command)
                 output = json.dumps({'severity': 'error', 'data': 'synthetic exact-build failure'})

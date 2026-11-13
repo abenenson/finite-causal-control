@@ -3,7 +3,9 @@ Copyright (c) 2026 Adam Benenson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Adam Benenson
 -/
-import FiniteRelativeEntropy.GibbsVariational
+module
+
+public import FiniteRelativeEntropy.GibbsVariational
 
 /-!
 # Finite causal path laws
@@ -18,6 +20,8 @@ the pathwise KL divergence.
 - `FiniteCausalControl.sourcePreservingPair`: two generated laws using one controlled kernel.
 - `FiniteCausalControl.finiteKL_sourcePreservingPair`: the strategic causal-KL chain rule.
 -/
+
+@[expose] public section
 
 open FiniteMarkovKernels FiniteRelativeEntropy
 

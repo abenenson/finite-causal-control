@@ -3,8 +3,10 @@ Copyright (c) 2026 Adam Benenson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Adam Benenson
 -/
-import FiniteCausalControl
-import Mathlib.Tactic.NormNum
+module
+
+public import FiniteCausalControl
+public import Mathlib.Tactic.NormNum
 
 /-!
 # Two-step stochastic control and support qualifications
@@ -14,6 +16,8 @@ the two-step always-false controller assigns probability `3/16` to one specified
 Uniform passive actions and a cost of one for true give a nonuniform Gibbs row. The same
 system instantiates the exact Bellman regret and minimizer-law uniqueness theorems.
 -/
+
+@[expose] public section
 
 open FiniteMarkovKernels FiniteRelativeEntropy
 

@@ -3,7 +3,9 @@ Copyright (c) 2026 Adam Benenson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Adam Benenson
 -/
-import FiniteCausalControl.SoftBellman
+module
+
+public import FiniteCausalControl.SoftBellman
 
 /-!
 # Supported-history uniqueness for finite causal control
@@ -17,6 +19,8 @@ making no claim about off-support policy rows.
 - `FiniteCausalControl.PolicyEqOnSupportedHistories`: supported behavioral-policy equality.
 - `FiniteCausalControl.minimizer_eq_on_selected_support`: supported policy and path-law uniqueness.
 -/
+
+@[expose] public section
 
 open FiniteMarkovKernels FiniteRelativeEntropy
 
