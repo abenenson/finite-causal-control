@@ -46,12 +46,12 @@ KL/Gibbs theory from
 [`finite-relative-entropy`](https://github.com/abenenson/finite-relative-entropy).
 It uses the shared probability and KL APIs supplied by those dependencies.
 
-The supported compiler is **Lean 4.34.1** with Mathlib
-**`d13f23b723b8a846827a245b89c10fc7d3f11612`**.
+The supported compiler is **Lean 4.35.0** with Mathlib
+**`56a005855ea17e0b0958f73ec801ae140b0a1679`**.
 The release manifest records exact dependency revisions.
 
 ```bash
-lake exe cache get
+python3 scripts/fetch_mathlib_cache.py
 lake --rehash --wfail build
 python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/verify.py
@@ -75,3 +75,13 @@ policy rows away from generated support. See [the API and overlap notes](docs/ov
 
 Copyright 2026 Adam Benenson. Apache 2.0. [LICENSE](LICENSE), [NOTICE](NOTICE), and
 [ORIGIN.json](ORIGIN.json) record the public source identities and license notices.
+
+The public entropy dependency is pinned to `ed8aadca604ae6ef79b6cf2e66dcd6157d070318`,
+and its Markov dependency to `e37ed564fcc193ace7c48a94cf8f7090c2a31390`.
+
+The checked [observation stability example](FiniteCausalControlExamples/ObservationStability.lean)
+combines Bellman minimizer-law uniqueness with finite-kernel contraction: every equal-objective
+controller has the same complete law, and a finite observer scales rollout distribution error
+by its Dobrushin coefficient. The coefficient need not be strictly below one.
+
+The fresh [compatibility qualification](docs/compatibility-qualification.json) records this pair.

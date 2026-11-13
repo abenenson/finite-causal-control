@@ -15,7 +15,7 @@ package «finite-causal-control» where
 
 require «finite-relative-entropy» from git
   "https://github.com/abenenson/finite-relative-entropy" @
-    "3973d752cc4a2b978e2743a159a6ee1182f93c4a"
+    "ed8aadca604ae6ef79b6cf2e66dcd6157d070318"
 
 @[default_target]
 lean_lib FiniteCausalControl

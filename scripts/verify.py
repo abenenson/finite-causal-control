@@ -261,7 +261,7 @@ def main():
             'Authored Lean file coverage differs from manifest'
         toolchain = (root / 'lean-toolchain').read_text().strip()
         version = run('compiler-version', ['lake', 'env', 'lean', '--version']).strip()
-        assert toolchain == 'leanprover/lean4:v4.34.1' and 'version 4.34.1,' in version
+        assert toolchain == 'leanprover/lean4:v4.35.0' and 'version 4.35.0,' in version
         record['compiler_version'] = version
         manifest = json.loads((root / 'lake-manifest.json').read_text())
         dependencies = manifest_dependencies(manifest['packages'])
@@ -302,15 +302,19 @@ def main():
         for relative in config['source_files']:
             path = evidence / 'lint-sources' / relative
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text('import Mathlib.Tactic.Linter.Lint\n' +
-                            (root / relative).read_text() + '\n#lint docBlame docBlameThm\n')
+            source = (root / relative).read_text()
+            assert re.search(r'^module$', source, re.M), relative
+            source = source.replace('module\n',
+                                    'module\nimport Mathlib.Tactic.Linter.Lint\n', 1)
+            path.write_text(source + '\n#lint docBlame docBlameThm\n')
             output = run('lint-' + relative.replace('/', '-'),
                          ['lake', 'env', 'lean', '-j2', '--json',
                           '--root=' + str(evidence / 'lint-sources'), str(path)])
             clean = messages(output)
             assert '-- All linting checks passed!' in clean, relative
             assert 'with 16 linters' in clean, relative
-        probe = '\n'.join('import ' + name for name in config['audit_imports']) + '\n'
+        probe = 'module\n' + '\n'.join(
+            'import ' + name for name in config['audit_imports']) + '\n'
         probe += '\n'.join('#print axioms ' + name for name in names) + '\n'
         (evidence / 'axioms.lean').write_text(probe)
         output = messages(run('axioms', ['lake', 'env', 'lean', '-j2', '--json',

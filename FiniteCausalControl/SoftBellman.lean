@@ -3,7 +3,9 @@ Copyright (c) 2026 Adam Benenson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Adam Benenson
 -/
-import FiniteCausalControl.PathLaw
+module
+
+public import FiniteCausalControl.PathLaw
 
 /-!
 # Soft Bellman recursion for finite causal control
@@ -19,6 +21,8 @@ with the initial soft value plus accumulated rowwise KL regret.
 - `FiniteCausalControl.controlObjective_eq_value_add_regret`: global exact regret identity.
 - `FiniteCausalControl.optimalPolicy_minimizes`: global behavioral-policy optimality.
 -/
+
+@[expose] public section
 
 open FiniteMarkovKernels FiniteRelativeEntropy
 
