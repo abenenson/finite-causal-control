@@ -1,4 +1,5 @@
 """Regression controls for acceptance failures; no Lean installation is needed."""
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -18,6 +19,8 @@ spec.loader.exec_module(verify)
 def fixture_repository(root):
     """Create a minimal, isolated repository for mocked end-to-end verifier controls."""
     (root / 'scripts').mkdir(parents=True)
+    (root / 'scripts/verify.py').write_text('fixture verifier\n')
+    (root / 'scripts/test_verify.py').write_text('fixture tests\n')
     (root / 'lean-toolchain').write_text('leanprover/lean4:v4.35.0\n')
     (root / 'lakefile.lean').write_text('import Lake\n')
     (root / 'lake-manifest.json').write_text(json.dumps({'packages': []}))
@@ -190,9 +193,67 @@ class VerificationControls(unittest.TestCase):
                 verify.main()
             record = json.loads((evidence / 'qualification.json').read_text())
             self.assertEqual(record['status'], 'passed')
+            self.assertTrue(record['inputs_unchanged'])
+            self.assertEqual(record['source_sha256']['Fixture.lean'],
+                             hashlib.sha256((root / 'Fixture.lean').read_bytes()).hexdigest())
+            self.assertEqual(record['configuration_sha256']['verification.json'],
+                             hashlib.sha256((root / 'verification.json').read_bytes()).hexdigest())
+            self.assertEqual(record['utility_sha256']['scripts/verify.py'],
+                             hashlib.sha256((root / 'scripts/verify.py').read_bytes()).hexdigest())
             self.assertEqual(record['removed_authored_artifacts'],
                              ['.lake/build/lib/lean/Fixture.olean'])
             self.assertEqual(stale.read_bytes(), b'fresh authored artifact')
+
+    def test_late_source_configuration_and_utility_drift_rejected_end_to_end(self):
+        for drift in ['source edit', 'source addition', 'source removal',
+                      'verification.json', 'lean-toolchain', 'lakefile.lean', 'lake-manifest.json',
+                      'utility edit', 'utility addition', 'utility removal']:
+            with self.subTest(drift=drift), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp) / 'repo'
+                fixture_repository(root)
+                original_source = (root / 'Fixture.lean').read_bytes()
+
+                def fake_run(command, **kwargs):
+                    if command == ['lake', 'env', 'lean', '--version']:
+                        output = 'Lean (version 4.35.0, fixture)'
+                    elif 'build' in command:
+                        output = 'Build completed successfully.'
+                    elif command[-1].endswith('axioms.lean'):
+                        if drift == 'source edit':
+                            path = root / 'Fixture.lean'
+                            path.write_text(path.read_text().replace('by trivial', 'by exact .intro'))
+                        elif drift == 'source addition':
+                            (root / 'Extra.lean').write_text('module\n')
+                        elif drift == 'source removal':
+                            (root / 'Fixture.lean').unlink()
+                        elif drift == 'utility edit':
+                            (root / 'scripts/verify.py').write_text('changed verifier\n')
+                        elif drift == 'utility addition':
+                            (root / 'scripts/extra.py').write_text('late utility\n')
+                        elif drift == 'utility removal':
+                            (root / 'scripts/test_verify.py').unlink()
+                        else:
+                            path = root / drift
+                            path.write_bytes(path.read_bytes() + b'\n')
+                        output = json.dumps({'severity': 'information',
+                            'data': "'Fixture.identity' depends on axioms: [propext]"})
+                    else:
+                        output = json.dumps({'severity': 'information',
+                            'data': '-- All linting checks passed! with 16 linters'})
+                    return SimpleNamespace(returncode=0, stdout=output)
+
+                evidence = Path(temp) / 'failed-run'
+                with patch.object(verify, '__file__', str(root / 'scripts/verify.py')), \
+                     patch.object(sys, 'argv', [str(SCRIPT), '--evidence-dir', str(evidence)]), \
+                     patch.object(verify.subprocess, 'run', side_effect=fake_run):
+                    with self.assertRaisesRegex(AssertionError, 'changed during qualification'):
+                        verify.main()
+                record = json.loads((evidence / 'qualification.json').read_text())
+                self.assertEqual(record['status'], 'failed')
+                self.assertEqual(record['stages'][-1]['name'], 'axioms')
+                self.assertNotIn('inputs_unchanged', record)
+                self.assertEqual(record['source_sha256']['Fixture.lean'],
+                                 hashlib.sha256(original_source).hexdigest())
 
     def test_zero_exit_exact_build_error_rejected_end_to_end(self):
         def fake_run(command, **kwargs):

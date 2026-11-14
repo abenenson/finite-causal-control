@@ -210,12 +210,25 @@ def allowed_import(module, roots):
         module == root or module.startswith(root + '.') for root in roots)
 
 
+def authored_sources(root):
+    """Enumerate authored Lean files, excluding dependency and verification outputs."""
+    return {str(path.relative_to(root)) for path in root.rglob('*.lean')
+            if not {'.lake', '.git', 'verification-artifacts'} &
+            set(path.relative_to(root).parts)}
+
+
+def utility_files(root):
+    """Enumerate Python utilities used to prepare and verify this repository."""
+    return {str(path.relative_to(root)) for path in (root / 'scripts').glob('*.py')}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--evidence-dir', type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
-    config = json.loads((root / 'verification.json').read_text())
+    config_bytes = (root / 'verification.json').read_bytes()
+    config = json.loads(config_bytes)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     evidence = args.evidence_dir or root / 'verification-artifacts' / stamp
     evidence = evidence.resolve()
@@ -254,16 +267,28 @@ def main():
         return joined
 
     try:
-        actual_sources = {str(p.relative_to(root)) for p in root.rglob('*.lean')
-                          if not {'.lake', '.git', 'verification-artifacts'} &
-                          set(p.relative_to(root).parts)}
+        actual_sources = authored_sources(root)
         assert actual_sources == set(config['source_files']) | {'lakefile.lean'}, \
             'Authored Lean file coverage differs from manifest'
-        toolchain = (root / 'lean-toolchain').read_text().strip()
+        actual_utilities = utility_files(root)
+        original_inputs = {'verification.json': config_bytes}
+        for relative in [*config['source_files'], 'lean-toolchain',
+                         'lakefile.lean', 'lake-manifest.json', *sorted(actual_utilities)]:
+            original_inputs[relative] = (root / relative).read_bytes()
+        input_hashes = {relative: hashlib.sha256(content).hexdigest()
+                        for relative, content in original_inputs.items()}
+        record['source_sha256'] = {relative: input_hashes[relative]
+                                   for relative in config['source_files']}
+        record['configuration_sha256'] = {relative: input_hashes[relative] for relative in
+                                           ['verification.json', 'lean-toolchain',
+                                            'lakefile.lean', 'lake-manifest.json']}
+        record['utility_sha256'] = {relative: input_hashes[relative]
+                                    for relative in sorted(actual_utilities)}
+        toolchain = original_inputs['lean-toolchain'].decode().strip()
         version = run('compiler-version', ['lake', 'env', 'lean', '--version']).strip()
         assert toolchain == 'leanprover/lean4:v4.35.0' and 'version 4.35.0,' in version
         record['compiler_version'] = version
-        manifest = json.loads((root / 'lake-manifest.json').read_text())
+        manifest = json.loads(original_inputs['lake-manifest.json'])
         dependencies = manifest_dependencies(manifest['packages'])
         assert set(dependencies) == set(config['public_dependencies'])
         record['dependency_revisions'] = {}
@@ -280,10 +305,8 @@ def main():
         roots = import_roots(config)
         names = []
         for relative in config['source_files']:
-            path = root / relative
-            source = path.read_text()
+            source = original_inputs[relative].decode()
             code = uncomment(source)
-            record['source_sha256'][relative] = hashlib.sha256(path.read_bytes()).hexdigest()
             assert not re.search(r'\b(?:sorry|admit|sorryAx)\b', code), relative
             assert not re.search(r'^\s*(?:@\[[^\]]*\]\s*)*(?:(?:private|protected|unsafe|noncomputable)\s+)*(?:axiom|constant)\b', code, re.M), relative
             assert all(len(line) <= 100 for line in source.splitlines()), relative
@@ -302,7 +325,7 @@ def main():
         for relative in config['source_files']:
             path = evidence / 'lint-sources' / relative
             path.parent.mkdir(parents=True, exist_ok=True)
-            source = (root / relative).read_text()
+            source = original_inputs[relative].decode()
             assert re.search(r'^module$', source, re.M), relative
             source = source.replace('module\n',
                                     'module\nimport Mathlib.Tactic.Linter.Lint\n', 1)
@@ -326,6 +349,14 @@ def main():
             axioms = {x.strip() for x in raw.split(',') if x.strip()}
             assert axioms <= {'Classical.choice', 'Quot.sound', 'propext'}, (name, axioms)
             record['axioms'][name] = sorted(axioms)
+        assert authored_sources(root) == actual_sources, \
+            'Authored Lean file inventory changed during qualification'
+        assert utility_files(root) == actual_utilities, \
+            'Python utility inventory changed during qualification'
+        for relative, expected in input_hashes.items():
+            actual = hashlib.sha256((root / relative).read_bytes()).hexdigest()
+            assert actual == expected, 'Verification input changed during qualification: ' + relative
+        record['inputs_unchanged'] = True
         record.update(status='passed', full_linter_count=16, named_declaration_count=len(names))
         save()
         print('PASS:', len(config['source_files']), 'files;', len(names), 'named declarations')
