@@ -23,6 +23,13 @@ The package exports these three focused modules through `FiniteCausalControl`. T
 separate example target is built by the default build and is not imported by that root.
 Its shared probability and relative-entropy types come from the pinned public dependencies.
 
+The [repair example](repair-example.md) uses one decision, two equipment states, a unit repair
+cost and a terminal failure penalty of three. It computes all four action values and derives
+opposite Gibbs preferences by state. The generic regret and support results then prove global
+optimality, equality of minimizing path laws and both initial rows, and a strict objective gap
+over always waiting. Full support of the example's initial law makes both rows identifiable;
+the underlying theorem still permits arbitrary behavior on unreachable histories.
+
 ## Mathematical sources and overlap
 
 Dynamic programming and entropy-regularized control are classical. Relevant precedents
@@ -49,6 +56,9 @@ coverage, exact locked dependency revisions, source hashes, warning-fatal elabor
 all 16 source linters, and transitive axioms. Compiler and lint logs are retained for the
 exact checked source. The allowed axiom set is `Classical.choice`, `Quot.sound`, and
 `propext`; no custom axiom, proof hole, or warning suppression is part of the library.
+Authored source and Python utility inventories, source bytes and build configuration are
+captured before the checks and compared afterward. A late edit, addition or removal rejects
+qualification; full lint replays the captured source bytes.
 
 The CI workflow uses read-only repository permissions and immutable action revisions.
 A workflow definition, historical local receipt, hosted execution, and public release
@@ -71,4 +81,5 @@ bodies. The opt-in observation example transports the existing two-step minimize
 an arbitrary finite observer and applies its Dobrushin contraction bound to approximate rollout
 laws. It assumes equality of objectives and does not assert a near-optimality or strict-mixing
 result. Dependency preparation validates every locked dependency and requests only the focused
-Mathlib import closure. Earlier receipts remain historical.
+Mathlib import closure. That initial receipt retains its original source inventory;
+the current manifest and verifier reports also cover the repair example.
