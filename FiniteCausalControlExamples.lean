@@ -7,6 +7,7 @@ module
 
 public import FiniteCausalControlExamples.Basic
 public import FiniteCausalControlExamples.ObservationStability
+public import FiniteCausalControlExamples.Repair
 
 /-! # Checked examples for finite causal control -/
 
