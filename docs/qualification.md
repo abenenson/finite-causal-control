@@ -33,3 +33,6 @@ as Git URLs and exact revisions, with no local dependency paths in the Lake mani
 This is local qualification of that dependency graph. Fresh remote dependency replay,
 hosted CI, and public repository publication are separate steps. The immutable CI workflow
 repeats the same source verifier on pushes and pull requests.
+
+Historical resource accounting omits host-specific launcher paths; measurements and the
+checked command are retained.

@@ -76,21 +76,6 @@
     }
   ],
   "started_utc": "2026-11-04T05:43:29Z",
-  "resource_guard_command": [
-    "/workspace/.cloud-tools/mcp-v2-venv/bin/python",
-    "/workspace/the mathematical library/mathematics/lean/docs/operations/tooling/cloud/runtime/resource_guard.py",
-    "--seconds",
-    "900",
-    "--gib",
-    "16",
-    "--receipt",
-    "/workspace/verification-open-source/release-evidence/resources/control-verify-3-resources.json",
-    "--",
-    "python3",
-    "scripts/verify.py",
-    "--evidence-dir",
-    "verification-artifacts/release-20261104-3"
-  ],
   "reason": "completed",
   "exit_code": 0,
   "elapsed_seconds": 47.63102388700099,
@@ -103,5 +88,8 @@
   "peak_cache_apparent_file_bytes": 110461036,
   "minimum_available_overlay_bytes": 31752245248,
   "final_sample_included_in_extrema": true,
-  "final_bounds_problem": null
+  "final_bounds_problem": null,
+  "omitted_host_fields": [
+    "resource_guard_command"
+  ]
 }
