@@ -38,6 +38,11 @@ The opt-in `FiniteCausalControlExamples` target contains a two-step stochastic B
 system, an exact nonzero complete-history probability, a Gibbs preference for a cheaper
 action, the complete objective/regret identity, and supported-law uniqueness.
 
+The [repair example](docs/repair-example.md) solves a one-decision problem with working and
+failed states, a repair cost, and a terminal failure penalty. It proves opposite Gibbs
+preferences in the two states, global optimality and minimizer-law uniqueness, and a strict
+objective improvement over always waiting. The full example is checked by the same verifier.
+
 ## Dependencies and build
 
 The library reuses the probability-vector type from
@@ -64,6 +69,8 @@ dependency graph; see the [dependency notes](docs/overview.md#public-dependencie
 Verification rebuilds the exact authored source, runs all 16 source linters with warnings
 fatal, checks public declaration coverage, and audits named public declarations' transitive
 axioms against `Classical.choice`, `Quot.sound`, and `propext`.
+The verifier freezes source and Python utility inventories and source/configuration hashes;
+edits, additions or removals during qualification invalidate the receipt.
 Local release evidence is retained in [the qualification notes](docs/qualification.md).
 
 ## Scope and attribution
