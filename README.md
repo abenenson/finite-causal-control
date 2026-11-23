@@ -92,3 +92,12 @@ controller has the same complete law, and a finite observer scales rollout distr
 by its Dobrushin coefficient. The coefficient need not be strictly below one.
 
 The fresh [compatibility qualification](docs/compatibility-qualification.json) records this pair.
+
+## Releases and related libraries
+
+Start with the [`v0.1.0` release](https://github.com/abenenson/finite-causal-control/releases/tag/v0.1.0) for the supported toolchain and verification run.
+
+- [finite-relative-entropy](https://github.com/abenenson/finite-relative-entropy) covers finite KL and Gibbs identities.
+- [finite-markov-kernels](https://github.com/abenenson/finite-markov-kernels) covers finite laws and transition kernels.
+
+[Browse the Lean library index](https://adambenenson.com/projects/#formal-methods).
